@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TermProject
-{
-    class Vehicle : Persistable
-    {
+namespace TermProject {
+    class Vehicle : Persistable {
         public int ID { get; set; }
         public string BikeMake { get; set; }
         public string ModelNumber { get; set; }
@@ -21,45 +19,17 @@ namespace TermProject
         public string DateStatusUpdated { get; set; }
 
 
-        public Vehicle()
-            : base() // call parent default constructor
-        {
-            connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;" +
-                @"Data source= C:\Users\Lisa\Documents" +
-                @"\BicycleRental.accdb";
-        }
+        public Vehicle() : base() { } // call parent default constructor
+
         //------------------------------------------------------------------
-        public Vehicle(string bikeMake, string modelNumber, string serialNumber, string color, string description,
-            string location, string physicalCondition, string notes, string status, string dateUpdated)
-            : base()
-        {
-            connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;" +
-                @"Data source= C:\Users\Lisa\Documents" +
-                @"\BicycleRental.accdb";
-            this.BikeMake = bikeMake;
-            this.ModelNumber = modelNumber;
-            this.SerialNumber = serialNumber;
-            this.Color = color;
-            this.Description = description;
-            this.Location = location;
-            this.PhysicalCondition = physicalCondition;
-            this.Notes = notes;
-            this.Status = status;
-            this.DateStatusUpdated = dateUpdated;
-        }
-        //------------------------------------------------------------------
-        public void populate(int ID)
-        {
+        public void Populate(int ID) {
             string queryString = "SELECT * FROM Vehicle WHERE (ID = " + ID + ")";
             List<Object> results = getValues(queryString);
-            if (results != null)
-            {
-                foreach (object result in results)
-                {
+            if (results != null) {
+                foreach (object result in results) {
                     IEnumerable<Object> row = result as IEnumerable<Object>;
                     int count = 0;
-                    foreach (object rowValue in row)
-                    {
+                    foreach (object rowValue in row) {
                         // DEBUG Console.WriteLine(rowValue);
                         if (count == 0)
                             this.ID = Convert.ToInt32(rowValue);
@@ -89,8 +59,7 @@ namespace TermProject
             }
         }
         //------------------------------------------------------------------
-        public void insert()
-        {
+        public void Insert() {
             string insertQuery =
             "INSERT INTO Vehicle (BikeMake, ModelNumber, SerialNumber, Color, Description, Location, PhysicalCondition, Notes, Status, DateStatusUpdated) " +
             "VALUES (" +
@@ -104,23 +73,17 @@ namespace TermProject
             this.Notes + "', '" +
             this.Status + "', '" +
             this.DateStatusUpdated + "')";
-            int returnCode = modifyDatabase(insertQuery);
-            if (returnCode != 0)
-            {
+            int returnCode = ModifyDatabase(insertQuery);
+            if (returnCode != 0) {
                 Console.WriteLine("Error in inserting Vehicle object into database");
-            }
-            else
-            {
+            } else {
                 Console.WriteLine("Vehicle object successfully inserted");
                 string idQueryString = "SELECT MAX(ID) FROM Vehicle";
                 List<Object> results = getValues(idQueryString);
-                if (results != null)
-                {
-                    foreach (object result in results)
-                    {
+                if (results != null) {
+                    foreach (object result in results) {
                         IEnumerable<Object> row = result as IEnumerable<Object>;
-                        foreach (object rowValue in row)
-                        {
+                        foreach (object rowValue in row) {
                             this.ID = Convert.ToInt32(rowValue);
                         }
                     }
@@ -128,8 +91,7 @@ namespace TermProject
             }
         }
         //------------------------------------------------------------------
-        public void update()
-        {
+        public void Update() {
             string updateQuery = "UPDATE Vehicle SET " +
                 " BikeMake = '" + this.BikeMake + "' ," +
                 " ModelNumber = '" + this.ModelNumber + "' ," +
@@ -143,30 +105,30 @@ namespace TermProject
                 " DateStatusUpdated = '" + this.DateStatusUpdated + "' " +
                 " WHERE " +
                 " ID = " + this.ID;
-            int returnCode = modifyDatabase(updateQuery);
+            int returnCode = ModifyDatabase(updateQuery);
             if (returnCode != 0)
                 Console.WriteLine("Error in updating Vehicle object into database");
             else
                 Console.WriteLine("Vehicle object successfully updated");
         }
         //------------------------------------------------------------------
-        public void delete()
-        {
+        public void Delete() {
             string deleteQuery = "DELETE FROM Vehicle WHERE " +
                 " ID = " + this.ID;
             Console.WriteLine(deleteQuery);
-            int returnCode = modifyDatabase(deleteQuery);
+            int returnCode = ModifyDatabase(deleteQuery);
             if (returnCode != 0)
                 Console.WriteLine("Error in deleting Vehicle object from database");
             else
                 Console.WriteLine("Vehicle object successfully deleted");
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return "ID:\t\t\t" + this.ID + "\nBike Make:\t\t" + this.BikeMake + "\nModel Number:\t\t" + this.ModelNumber + "\nSerial Number:\t\t" + this.SerialNumber + "\nColor:\t\t\t" + this.Color +
-                "\nDescription:\t\t" + this.Description + "\nLocation:\t\t" + this.Location + "\nPhysical Condition:\t" + this.PhysicalCondition + 
+                "\nDescription:\t\t" + this.Description + "\nLocation:\t\t" + this.Location + "\nPhysical Condition:\t" + this.PhysicalCondition +
                 "\nNotes:\t\t\t" + this.Notes + "\nStatus\t\t\t" + this.Status + "\nDate status updated:\t" + this.DateStatusUpdated;
         }
+
+        public void Print() { Console.WriteLine("\n********\n" + this.ToString() + "\n********\n"); }
     }
 }
