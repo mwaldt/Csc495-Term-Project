@@ -124,9 +124,17 @@ namespace TermProject {
         }
 
         public override string ToString() {
-            return "ID:\t\t\t" + this.ID + "\nBike Make:\t\t" + this.BikeMake + "\nModel Number:\t\t" + this.ModelNumber + "\nSerial Number:\t\t" + this.SerialNumber + "\nColor:\t\t\t" + this.Color +
-                "\nDescription:\t\t" + this.Description + "\nLocation:\t\t" + this.Location + "\nPhysical Condition:\t" + this.PhysicalCondition +
-                "\nNotes:\t\t\t" + this.Notes + "\nStatus\t\t\t" + this.Status + "\nDate status updated:\t" + this.DateStatusUpdated;
+            return "\nID:\t\t\t" + this.ID +
+                "\nBike Make:\t\t" + this.BikeMake +
+                "\nModel Number:\t\t" + this.ModelNumber +
+                "\nSerial Number:\t\t" + this.SerialNumber +
+                "\nColor:\t\t\t" + this.Color +
+                "\nDescription:\t\t" + this.Description +
+                "\nLocation:\t\t" + this.Location +
+                "\nPhysical Condition:\t" + this.PhysicalCondition +
+                "\nNotes:\t\t\t" + this.Notes +
+                "\nStatus\t\t\t" + this.Status +
+                "\nDate status updated:\t" + this.DateStatusUpdated;
         }
 
         public void Print() { Console.WriteLine("\n********\n" + this.ToString() + "\n********\n"); }
