@@ -29,11 +29,11 @@ namespace TermProject {
 
         
         public void PrintAll() {
-            /*
+            
             foreach(Rental rental in rentals){
                 rental.Print();
             }
-             */
+            
         } 
     }
 }
