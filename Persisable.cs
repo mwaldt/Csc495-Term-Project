@@ -13,9 +13,9 @@ namespace TermProject {
         public Persistable(){
             conn = new System.Data.OleDb.OleDbConnection();
             connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;" +
-                //@"Data source= C:\Users\Lisa\Documents" +                                             //Lisa laptop?
-                @"Data source = E:\Workspace\C#\TermProject\TermProject" +                              //Max Desktop
-                //@"Data source = C:\Users\Maximus\Documents\Visual Studio 2013\Projects\" +            //Max laptop, will fill in later
+                //@"Data source = C:\Users\Lisa\Documents" +                                             //Lisa laptop?
+                //@"Data source = E:\Workspace\C#\TermProject\TermProject" +                              //Max Desktop
+                @"Data source = C:\Users\Maximus\Documents\Visual Studio 2013\Projects\TermProject\TermProject" +            //Max laptop, will fill in later
                 @"\BicycleRental.accdb";
         }
 
