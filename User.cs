@@ -98,7 +98,7 @@ namespace TermProject {
 
         //------------------------------------------------------------------
         public void Update() {
-            string updateQuery = "UPDATE Worker SET " +
+            string updateQuery = "UPDATE [User] SET " +
                 " BannerId = '" + this.BannerID + "' ," +
                 " FirstName = '" + this.FirstName + "' ," +
                 " LastName = '" + this.LastName + "' ," +
@@ -119,7 +119,7 @@ namespace TermProject {
 
         //------------------------------------------------------------------
         public void Delete() {
-            string deleteQuery = "DELETE FROM Worker WHERE " +
+            string deleteQuery = "DELETE FROM [User] WHERE " +
                 " ID = " + this.ID;
             Console.WriteLine(deleteQuery);
             int returnCode = ModifyDatabase(deleteQuery);
@@ -130,9 +130,17 @@ namespace TermProject {
         }
 
         public override string ToString() {
-            return "ID:\t\t\t" + this.ID + "\nBanner Id:\t\t" + this.BannerID + "\nFirst name:\t\t" + this.FirstName + "\nLast Name:\t\t" + this.LastName + "\nPhone number:\t\t" + this.PhoneNumber +
-                "\nEmail address:\t\t" + this.Email + "\nUser Type:\t\t" + this.UserType + "\nRegistration date:\t" + this.InitialRegistrationDate + "\nNotes:\t\t\t" + this.Notes +
-                "\nStatus:\t\t\t" + this.Status + "\nDate status updated:\t" + this.DateStatusUpdated;
+            return "\nID:\t\t\t" + this.ID +
+                "\nBanner Id:\t\t" + this.BannerID +
+                "\nFirst name:\t\t" + this.FirstName +
+                "\nLast Name:\t\t" + this.LastName +
+                "\nPhone number:\t\t" + this.PhoneNumber +
+                "\nEmail address:\t\t" + this.Email +
+                "\nUser Type:\t\t" + this.UserType +
+                "\nRegistration date:\t" + this.InitialRegistrationDate +
+                "\nNotes:\t\t\t" + this.Notes +
+                "\nStatus:\t\t\t" + this.Status +
+                "\nDate status updated:\t" + this.DateStatusUpdated;
         }
     }
 }
