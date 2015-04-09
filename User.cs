@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TermProject {
-    class User : Persistable {
+namespace TermProject
+{
+    class User : Persistable
+    {
         public int ID { get; set; }
         public string BannerID { get; set; }
         public string FirstName { get; set; }
@@ -13,24 +15,42 @@ namespace TermProject {
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string UserType { get; set; }
-        public string InitialRegistrationDate { get; private set; }
         public string Notes { get; set; }
         public string Status { get; set; }
         public string DateStatusUpdated { get; set; }
 
 
-        public User(): base() { } // call parent default constructor
+        public User() : base() { } // call parent default constructor
+
+        //-----------------------------------------------------------------
+        public User(string bannerId, string firstName, string lastName, string phoneNumber, string email,
+            string userType, string notes)
+        {
+            this.BannerID = bannerId;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.PhoneNumber = phoneNumber;
+            this.Email = email;
+            this.UserType = userType;
+            this.Notes = notes;
+            this.Status = "Active";
+            this.DateStatusUpdated = DateTime.Now.ToString("yyyy-MM-dd");
+        }
 
 
         //------------------------------------------------------------------
-        public void Populate(int ID) {
+        public void Populate(int ID)
+        {
             string queryString = "SELECT * FROM [User] WHERE (ID = " + ID + ")";
             List<Object> results = getValues(queryString);
-            if (results != null) {
-                foreach (object result in results) {
+            if (results != null)
+            {
+                foreach (object result in results)
+                {
                     IEnumerable<Object> row = result as IEnumerable<Object>;
                     int count = 0;
-                    foreach (object rowValue in row) {
+                    foreach (object rowValue in row)
+                    {
                         // DEBUG Console.WriteLine(rowValue);
                         if (count == 0)
                             this.ID = Convert.ToInt32(rowValue);
@@ -47,12 +67,10 @@ namespace TermProject {
                         else if (count == 6)
                             UserType = Convert.ToString(rowValue);
                         else if (count == 7)
-                            InitialRegistrationDate = Convert.ToString(rowValue);
-                        else if (count == 8)
                             Notes = Convert.ToString(rowValue);
-                        else if (count == 9)
+                        else if (count == 8)
                             Status = Convert.ToString(rowValue);
-                        else if (count == 10)
+                        else if (count == 9)
                             DateStatusUpdated = Convert.ToString(rowValue);
                         count = count + 1;
                     }
@@ -61,10 +79,11 @@ namespace TermProject {
         }
 
         //------------------------------------------------------------------
-        public void Insert() {
-            this.InitialRegistrationDate = DateTime.Now.ToString("yyyy-MM-dd");
+        public void Insert()
+        {
+            
             string insertQuery =
-            "INSERT INTO [User] (BannerId, FirstName, LastName, PhoneNumber, EmailAddress, UserType, InitialRegistrationDate, Notes, Status, DateStatusUpdated) " +
+            "INSERT INTO [User] (BannerId, FirstName, LastName, PhoneNumber, EmailAddress, UserType, Notes, Status, DateStatusUpdated) " +
             "VALUES (" +
             "'" + this.BannerID + "', '" +
             this.FirstName + "', '" +
@@ -72,22 +91,27 @@ namespace TermProject {
             this.PhoneNumber + "', '" +
             this.Email + "', '" +
             this.UserType + "', '" +
-            this.InitialRegistrationDate + "', '" +
             this.Notes + "', '" +
             this.Status + "', '" +
             this.DateStatusUpdated + "')";
             int returnCode = ModifyDatabase(insertQuery);
-            if (returnCode != 0) {
-                Console.WriteLine("Error in inserting Worker object into database");
-            } else {
-                Console.WriteLine("Worker object successfully inserted");
+            if (returnCode != 0)
+            {
+                Console.WriteLine("Error in inserting User object into database");
+            }
+            else
+            {
+                Console.WriteLine("User object successfully inserted");
                 string idQueryString = "SELECT MAX(ID) FROM [User]";
                 List<Object> results = getValues(idQueryString);
-                if (results != null) {
+                if (results != null)
+                {
                     // DEBUG Console.WriteLine("Got an id from id query");
-                    foreach (object result in results) {
+                    foreach (object result in results)
+                    {
                         IEnumerable<Object> row = result as IEnumerable<Object>;
-                        foreach (object rowValue in row) {
+                        foreach (object rowValue in row)
+                        {
                             // DEBUG Console.WriteLine("Retrieved id = " + rowValue);
                             this.ID = Convert.ToInt32(rowValue);
                         }
@@ -97,7 +121,8 @@ namespace TermProject {
         }
 
         //------------------------------------------------------------------
-        public void Update() {
+        public void Update()
+        {
             string updateQuery = "UPDATE [User] SET " +
                 " BannerId = '" + this.BannerID + "' ," +
                 " FirstName = '" + this.FirstName + "' ," +
@@ -112,24 +137,26 @@ namespace TermProject {
                 " ID = " + this.ID;
             int returnCode = ModifyDatabase(updateQuery);
             if (returnCode != 0)
-                Console.WriteLine("Error in updating Worker object into database");
+                Console.WriteLine("Error in updating User object into database");
             else
-                Console.WriteLine("Worker object successfully updated");
+                Console.WriteLine("User object successfully updated");
         }
 
         //------------------------------------------------------------------
-        public void Delete() {
+        public void Delete()
+        {
             string deleteQuery = "DELETE FROM [User] WHERE " +
                 " ID = " + this.ID;
             Console.WriteLine(deleteQuery);
             int returnCode = ModifyDatabase(deleteQuery);
             if (returnCode != 0)
-                Console.WriteLine("Error in deleting Worker object from database");
+                Console.WriteLine("Error in deleting User object from database");
             else
-                Console.WriteLine("Worker object successfully deleted");
+                Console.WriteLine("User object successfully deleted");
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "\nID:\t\t\t" + this.ID +
                 "\nBanner Id:\t\t" + this.BannerID +
                 "\nFirst name:\t\t" + this.FirstName +
@@ -137,10 +164,10 @@ namespace TermProject {
                 "\nPhone number:\t\t" + this.PhoneNumber +
                 "\nEmail address:\t\t" + this.Email +
                 "\nUser Type:\t\t" + this.UserType +
-                "\nRegistration date:\t" + this.InitialRegistrationDate +
                 "\nNotes:\t\t\t" + this.Notes +
                 "\nStatus:\t\t\t" + this.Status +
                 "\nDate status updated:\t" + this.DateStatusUpdated;
         }
     }
 }
+
