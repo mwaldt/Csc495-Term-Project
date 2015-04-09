@@ -55,7 +55,7 @@ namespace TermProject {
         private void ParseMainInput(int inputInt) {
             switch (inputInt) {
                 case 1:
-                    GetAndShowWorker();
+                    ShowWorkerTransaction();
                     break;
                 case 2:
                     CreateNewWorkerTrans();
@@ -67,7 +67,7 @@ namespace TermProject {
                     ModifyWorkerTrans();
                     break;
                 case 5:
-                    GetAndShowUser();
+                    GetAndShowVehicle();
                     break;
                 case 6:
                     CreateNewVehicleTrans();
@@ -104,6 +104,14 @@ namespace TermProject {
         }
 
         //Prompts for an id and displays the worker with that ID #
+        private void ShowWorkerTransaction() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Get Worker Information");
+            Console.WriteLine("----------------");
+            GetAndShowWorker();
+            Console.WriteLine("\n\n\n\n");
+        }
+        
         private void GetAndShowWorker() {
             int workerId;
             Console.Write("Please enter the worker id: ");
@@ -122,8 +130,12 @@ namespace TermProject {
 
         //Prompts for new worker's information then insersts the new user into the database
         private void CreateNewWorkerTrans() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Create New Worker");
+            Console.WriteLine("----------------");
             ReadAssignWorkerInput();
             myWorker.Insert();
+            Console.WriteLine("\n\n\n\n");
         }
 
         //Prompts for and reads input for a worker's variables (used in creation and modification)
@@ -152,11 +164,15 @@ namespace TermProject {
 
         //Modify an existing worker, Prompts for a worker's ID then provides his inpormation and a prompt to modify the worker
         private void ModifyWorkerTrans() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Modify an existing Worker Information");
+            Console.WriteLine("----------------");
             GetAndShowWorker();
-            Console.WriteLine("Is this the worker to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
+            Console.WriteLine("Is this the worker to modify? Enter 'y' to confirm modify, any other input will cancel modify");
             string responce = Console.ReadLine();
             if (responce == "y") { ReadAssignWorkerInput(); myWorker.Update(); }
-            else { Console.WriteLine("Worker not deleted"); }
+            else { Console.WriteLine("Worker not modified"); }
+            Console.WriteLine("\n\n\n\n");
         }
 
         //Delete a worker, Prompts for the workers ID, displays the worker than prompts to confirm that this is the correct decision. Will delete after prompt
@@ -167,35 +183,47 @@ namespace TermProject {
             string responce = Console.ReadLine();
             if (responce == "y") { myWorker.Delete(); }
             else { Console.WriteLine("Worker not deleted"); }
+            Console.WriteLine("\n\n\n\n");
         }
 
 
         //*****************************************************************************************
+
+        //
+        private void ShowUserTransaction() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Get User Information");
+            Console.WriteLine("----------------");
+            GetAndShowUser();
+            Console.WriteLine("\n\n\n\n");
+        }
+
 
         //Prompts for an id and displays the user with that ID #
         private void GetAndShowUser() {
             int userId;
             Console.Write("Please enter the user id: ");
             userId = Convert.ToInt32(Console.ReadLine());
-            //view specified worker from worker table
+            //view specified user from user table
             try {
-                myWorker.Populate(userId);
-                if (myWorker.ID == 0)
+                myUser.Populate(userId);
+                if (myUser.ID == 0)
                     Console.WriteLine("Not a valid user number.");
                 else
-                    Console.WriteLine(myWorker.ToString());
+                    Console.WriteLine(myUser.ToString());
             } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
+            
         }
 
-        //Prompts for new worker's information then insersts the new user into the database
+        //Prompts for new user's information then insersts the new user into the database
         private void CreateNewUserTrans() {
             ReadAssignUserInput();
-            myWorker.Insert();
+            myUser.Insert();
         }
 
-        //Prompts for and reads input for a worker's variables (used in creation and modification)
+        //Prompts for and reads input for a user's variables (used in creation and modification)
         //This would end up being a lot cleaner in a GUI situation
         private void ReadAssignUserInput() {
             Console.Write("Please enter the banner Id: ");
@@ -208,7 +236,7 @@ namespace TermProject {
             myUser.PhoneNumber = Console.ReadLine();
             Console.Write("Please enter the email address: ");
             myUser.Email = Console.ReadLine();
-            Console.Write("Please enter the credential: ");
+            Console.Write("Please enter the user type: ");
             myUser.UserType = Console.ReadLine();
             Console.Write("Please enter some notes: ");
             myUser.Notes = Console.ReadLine();
@@ -217,38 +245,48 @@ namespace TermProject {
             myUser.DateStatusUpdated = (DateTime.Now.ToString("yyyy-MM-dd"));
         }
 
-        //Modify an existing worker, Prompts for a worker's ID then provides his inpormation and a prompt to modify the worker
+        //Modify an existing user, Prompts for a user's ID then provides his inpormation and a prompt to modify the user
         private void ModifyUserTrans() {
             GetAndShowUser();
-            Console.WriteLine("Is this the worker to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
+            Console.WriteLine("Is this the user to modify? Enter 'y' to confirm modify, any other input will cancel modify.");
             string responce = Console.ReadLine();
-            if (responce == "y") { ReadAssignUserInput(); myWorker.Update(); } else { Console.WriteLine("Worker not deleted"); }
+            if (responce == "y") { ReadAssignUserInput(); myUser.Update(); } else { Console.WriteLine("User not modified"); }
         }
 
-        //Delete a worker, Prompts for the workers ID, displays the worker than prompts to confirm that this is the correct decision. Will delete after prompt
+        //Delete a user, Prompts for the user's ID, displays the user than prompts to confirm that this is the correct decision.
+        //Will delete after prompt
         private void DeleteUserTrans() {
-            Console.WriteLine("Delete a worker,");
+            Console.WriteLine("Delete a User,");
             GetAndShowUser();
-            Console.WriteLine("Is this the worker to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
+            Console.WriteLine("Is this the user to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
             string responce = Console.ReadLine();
-            if (responce == "y") { myWorker.Delete(); } else { Console.WriteLine("Worker not deleted"); }
+            if (responce == "y") { myUser.Delete(); } else { Console.WriteLine("User not deleted"); }
         }
 
 
         //*****************************************************************************************
 
-        //Prompts for an id and displays the user with that ID #
+        //
+        private void ShowVehicleTransaction() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Get Vehicle Information");
+            Console.WriteLine("----------------");
+            GetAndShowVehicle();
+            Console.WriteLine("\n\n\n\n");
+        }
+
+        //Prompts for an id and displays the vehicle with that ID #
         private void GetAndShowVehicle() {
             int vehicleId;
             Console.Write("Please enter the vehicle id: ");
             vehicleId = Convert.ToInt32(Console.ReadLine());
             //view specified worker from worker table
             try {
-                myWorker.Populate(vehicleId);
-                if (myWorker.ID == 0)
+                myVehicle.Populate(vehicleId);
+                if (myVehicle.ID == 0)
                     Console.WriteLine("Not a valid vehicle number.");
                 else
-                    Console.WriteLine(myWorker.ToString());
+                    Console.WriteLine(myVehicle.ToString());
             } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
             }
@@ -256,53 +294,56 @@ namespace TermProject {
 
         //Prompts for new worker's information then insersts the new user into the database
         private void CreateNewVehicleTrans() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Create new Vehicle");
+            Console.WriteLine("----------------");
             ReadAssignVehicleInput();
-            myWorker.Insert();
+            myVehicle.Insert();
         }
 
         //Prompts for and reads input for a worker's variables (used in creation and modification)
         //This would end up being a lot cleaner in a GUI situation
         private void ReadAssignVehicleInput() {
-            Console.Write("Please enter the banner Id: ");
-            myWorker.BannerID = Console.ReadLine();
-            Console.Write("Please enter the first name: ");
-            myWorker.FirstName = Console.ReadLine();
-            Console.Write("Please enter the last name: ");
-            myWorker.LastName = Console.ReadLine();
-            Console.Write("Please enter the phone number: ");
-            myWorker.PhoneNumber = Console.ReadLine();
-            Console.Write("Please enter the email address: ");
-            myWorker.Email = Console.ReadLine();
-            Console.Write("Please enter the credential: ");
-            myWorker.Credential = Console.ReadLine();
-            Console.Write("Please enter the worker password: ");
-            myWorker.WorkerPassword = Console.ReadLine();
+            Console.Write("Please enter the vehicle make: ");
+            myVehicle.BikeMake = Console.ReadLine();
+            Console.Write("Please enter the model number: ");
+            myVehicle.ModelNumber = Console.ReadLine();
+            Console.Write("Please enter serial number: ");
+            myVehicle.SerialNumber = Console.ReadLine();
+            Console.Write("Please enter the color: ");
+            myVehicle.Color = Console.ReadLine();
+            Console.Write("Please enter the description: ");
+            myVehicle.Description = Console.ReadLine();
+            Console.Write("Please enter the location: ");
+            myVehicle.Location = Console.ReadLine();
+            Console.Write("Please enter the physical condition: ");
+            myVehicle.PhysicalCondition = Console.ReadLine();
             Console.Write("Please enter some notes: ");
-            myWorker.Notes = Console.ReadLine();
+            myVehicle.Notes = Console.ReadLine();
             Console.Write("Please enter the status: ");
-            myWorker.Status = Console.ReadLine();
-            myWorker.DateStatusUpdated = (DateTime.Now.ToString("yyyy-MM-dd"));
+            myVehicle.Status = Console.ReadLine();
+            myVehicle.DateStatusUpdated = (DateTime.Now.ToString("yyyy-MM-dd"));
         }
 
         //Modify an existing worker, Prompts for a worker's ID then provides his inpormation and a prompt to modify the worker
         private void ModifyVehicleTrans() {
+            Console.WriteLine("\n----------------");
+            Console.WriteLine("Modify an existing Vehicle");
+            Console.WriteLine("----------------");
             GetAndShowVehicle();
-            Console.WriteLine("Is this the worker to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
+            Console.WriteLine("Is this the vehicle to modify? Enter 'y' to confirm delete, any other input will cancel modify");
             string responce = Console.ReadLine();
-            if (responce == "y") { ReadAssignUserInput(); myWorker.Update(); } else { Console.WriteLine("Worker not deleted"); }
+            if (responce == "y") { ReadAssignVehicleInput(); myVehicle.Update(); } else { Console.WriteLine("Vehicle not modified"); }
         }
 
         //Delete a worker, Prompts for the workers ID, displays the worker than prompts to confirm that this is the correct decision. Will delete after prompt
         private void DeleteVehicleTrans() {
-            Console.WriteLine("Delete a worker,");
+            Console.WriteLine("Delete a vehicle,");
             GetAndShowVehicle();
-            Console.WriteLine("Is this the worker to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
+            Console.WriteLine("Is this the vehicle to delete? Enter 'y' to confirm delete, any other input will cancel deletion");
             string responce = Console.ReadLine();
-            if (responce == "y") { myWorker.Delete(); } else { Console.WriteLine("Worker not deleted"); }
+            if (responce == "y") { myVehicle.Delete(); } else { Console.WriteLine("Vehicle not deleted"); }
         }
-
-
-
     }
 }
 
