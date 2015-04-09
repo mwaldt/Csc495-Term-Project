@@ -24,7 +24,7 @@ namespace TermProject {
 
         //------------------------------------------------------------------
         public void Populate(int ID) {
-            string queryString = "SELECT * FROM Worker WHERE (ID = " + ID + ")";
+            string queryString = "SELECT * FROM Worker WHERE ID = " + ID;
             List<Object> results = getValues(queryString);
             if (results != null) {
                 foreach (object result in results) {
@@ -132,7 +132,7 @@ namespace TermProject {
         }
 
         public override string ToString() {
-            return "ID:\t\t\t" + this.ID +
+            return "\nID:\t\t\t" + this.ID +
                 "\nBanner Id:\t\t" + this.BannerID +
                 "\nFirst name:\t\t" + this.FirstName +
                 "\nLast Name:\t\t" + this.LastName +
