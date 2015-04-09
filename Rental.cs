@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TermProject {
-    class Rental : Persistable {
+namespace TermProject
+{
+    class Rental : Persistable
+    {
         public int ID { get; set; }
         public string VehicleID { get; set; }
         public string RenterID { get; set; }
@@ -23,14 +25,18 @@ namespace TermProject {
 
 
         //------------------------------------------------------------------
-        public void Populate(int ID) {
+        public void Populate(int ID)
+        {
             string queryString = "SELECT * FROM Rental WHERE (ID = " + ID + ")";
             List<Object> results = getValues(queryString);
-            if (results != null) {
-                foreach (object result in results) {
+            if (results != null)
+            {
+                foreach (object result in results)
+                {
                     IEnumerable<Object> row = result as IEnumerable<Object>;
                     int count = 0;
-                    foreach (object rowValue in row) {
+                    foreach (object rowValue in row)
+                    {
                         // DEBUG Console.WriteLine(rowValue);
                         if (count == 0)
                             this.ID = Convert.ToInt32(rowValue);
@@ -41,16 +47,18 @@ namespace TermProject {
                         else if (count == 3)
                             DateRented = Convert.ToString(rowValue);
                         else if (count == 4)
-                            DateDue = Convert.ToString(rowValue);
+                            TimeRented = Convert.ToString(rowValue);
                         else if (count == 5)
-                            TimeDue = Convert.ToString(rowValue);
+                            DateDue = Convert.ToString(rowValue);                        
                         else if (count == 6)
-                            DateReturned = Convert.ToString(rowValue);
+                            TimeDue = Convert.ToString(rowValue);                        
                         else if (count == 7)
-                            TimeReturned = Convert.ToString(rowValue);
+                            DateReturned = Convert.ToString(rowValue);                            
                         else if (count == 8)
-                            CheckoutWorkerID = Convert.ToString(rowValue);
+                            TimeReturned = Convert.ToString(rowValue);                      
                         else if (count == 9)
+                            CheckoutWorkerID = Convert.ToString(rowValue);
+                        else if (count == 10)
                             CheckinWorkerID = Convert.ToString(rowValue);
                         count = count + 1;
                     }
@@ -59,10 +67,11 @@ namespace TermProject {
         }
 
         //------------------------------------------------------------------
-        public void Insert() {
+        public void Insert()
+        {
             this.DateRented = DateTime.Now.ToString("yyyy-MM-dd");
             string insertQuery =
-            "INSERT INTO Rental (VehicleID, RenterID, DateRented, DateDue, EmailAddress, UserType, InitialRegistrationDate, Notes, Status, DateStatusUpdated) " +
+            "INSERT INTO Rental (VehicleID, RenterID, DateRented, TimeRenter, DateDue, TimeDue, DateReturned, TimeReturned, CheckoutWorker, CheckinWorker) " +
             "VALUES (" +
             "'" + this.VehicleID + "', '" +
             this.RenterID + "', '" +
@@ -75,17 +84,23 @@ namespace TermProject {
             this.CheckoutWorkerID + "', '" +
             this.CheckinWorkerID + "')";
             int returnCode = ModifyDatabase(insertQuery);
-            if (returnCode != 0) {
+            if (returnCode != 0)
+            {
                 Console.WriteLine("Error in inserting Rental object into database");
-            } else {
+            }
+            else
+            {
                 Console.WriteLine("Rental object successfully inserted");
                 string idQueryString = "SELECT MAX(ID) FROM Rental";
                 List<Object> results = getValues(idQueryString);
-                if (results != null) {
+                if (results != null)
+                {
                     // DEBUG Console.WriteLine("Got an id from id query");
-                    foreach (object result in results) {
+                    foreach (object result in results)
+                    {
                         IEnumerable<Object> row = result as IEnumerable<Object>;
-                        foreach (object rowValue in row) {
+                        foreach (object rowValue in row)
+                        {
                             // DEBUG Console.WriteLine("Retrieved id = " + rowValue);
                             this.ID = Convert.ToInt32(rowValue);
                         }
@@ -95,7 +110,8 @@ namespace TermProject {
         }
 
         //------------------------------------------------------------------
-        public void Update() {
+        public void Update()
+        {
             string updateQuery = "UPDATE Worker SET " +
                 " VehicleID  = '" + this.VehicleID + "' ," +
                 " RenterID  = '" + this.RenterID + "' ," +
@@ -117,7 +133,8 @@ namespace TermProject {
         }
 
         //------------------------------------------------------------------
-        public void Delete() {
+        public void Delete()
+        {
             string deleteQuery = "DELETE FROM Rental WHERE " +
                 " ID = " + this.ID;
             Console.WriteLine(deleteQuery);
@@ -128,7 +145,8 @@ namespace TermProject {
                 Console.WriteLine("Rental object successfully deleted");
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "\nID:\t\t\t" + this.ID +
                 "\nVehicle ID:\t\t" + this.VehicleID +
                 "\nRenter ID:\t\t" + this.RenterID +
@@ -141,5 +159,8 @@ namespace TermProject {
                 "\nCheckout Worker ID:\t" + this.CheckoutWorkerID +
                 "\nCheckin Worker ID:\t" + this.CheckinWorkerID;
         }
+
+        public void Print() { Console.WriteLine("\n********\n" + this.ToString() + "\n********\n"); }
     }
 }
+
