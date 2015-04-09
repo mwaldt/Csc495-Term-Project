@@ -129,9 +129,17 @@ namespace TermProject {
         }
 
         public override string ToString() {
-            return "ID:\t\t\t" + this.ID + "\nBanner Id:\t\t" + this.BannerID + "\nFirst name:\t\t" + this.FirstName + "\nLast Name:\t\t" + this.LastName + "\nPhone number:\t\t" + this.PhoneNumber +
-                "\nEmail address:\t\t" + this.Email + "\nUser Type:\t\t" + this.UserType + "\nRegistration date:\t" + this.InitialRegistrationDate + "\nNotes:\t\t\t" + this.Notes +
-                "\nStatus:\t\t\t" + this.Status + "\nDate status updated:\t" + this.DateStatusUpdated;
+            return "\nID:\t\t\t" + this.ID +
+                "\nVehicle ID:\t\t" + this.VehicleID +
+                "\nRenter ID:\t\t" + this.RenterID +
+                "\nDate Rented:\t\t" + this.DateRented +
+                "\nTime Rented:\t\t" + this.TimeRented +
+                "\nDate Due:\t\t" + this.DateDue +
+                "\nTime Due:\t\t" + this.TimeDue +
+                "\nDate Returned:\t" + this.DateReturned +
+                "\nTime Returned:\t" + this.TimeReturned +
+                "\nCheckout Worker ID:\t" + this.CheckoutWorkerID +
+                "\nCheckin Worker ID:\t" + this.CheckinWorkerID;
         }
     }
 }
